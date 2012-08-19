@@ -118,7 +118,7 @@ func (o *OAuth) makeRequest(method, url string, oParams map[string]string, param
 	default:
 		return nil, &implementationError{
 			What:  fmt.Sprintf("HTTP method (%s)", method),
-			Where: "OAuth\xb7makeRequest()",
+			Where: "OAuth\u00b7makeRequest()",
 		}
 	}
 	return
@@ -130,7 +130,7 @@ func (o *OAuth) AuthorizationURL() (string, error) {
 	if o.RequestToken == "" || o.RequestSecret == "" {
 		return "", &danceError{
 			What:  "attempt to get authorization without credentials",
-			Where: "OAuth\xb7AuthorizationURL()",
+			Where: "OAuth\u00b7AuthorizationURL()",
 		}
 	}
 
@@ -145,7 +145,7 @@ func (o *OAuth) GetAccessToken(verifier string) (err error) {
 	if o.RequestToken == "" || o.RequestSecret == "" {
 		return &danceError{
 			What:  "Temporary credentials not avaiable",
-			Where: "OAuth\xb7GetAccessToken()",
+			Where: "OAuth\u00b7GetAccessToken()",
 		}
 	}
 
@@ -193,7 +193,7 @@ func (o *OAuth) parseResponse(status int, body io.Reader, requestType int) error
 	default:
 		return &implementationError{
 			What:  "requestType=" + strconv.Itoa(requestType),
-			Where: "OAuth\xb7parseResponse()",
+			Where: "OAuth\u00b7parseResponse()",
 		}
 	}
 	return nil
@@ -270,7 +270,7 @@ func (o *OAuth) sign(request string) (string, error) {
 	}
 	return "", &implementationError{
 		What:  fmt.Sprintf("Unknown signature method (%d)", o.SignatureMethod),
-		Where: "OAuth\xb7sign",
+		Where: "OAuth\u00b7sign",
 	}
 }
 
@@ -282,7 +282,7 @@ func (o *OAuth) Post(url string, params map[string]string) (r *http.Response, er
 	if !o.Authorized() {
 		return nil, &danceError{
 			What:  "Not authorized",
-			Where: "OAuth\xb7PostParams()",
+			Where: "OAuth\u00b7PostParams()",
 		}
 	}
 
@@ -295,7 +295,7 @@ func (o *OAuth) Get(url string, params map[string]string) (r *http.Response, err
 	if !o.Authorized() {
 		return nil, &danceError{
 			What:  "Not authorized",
-			Where: "OAuth\xb7PostParams()",
+			Where: "OAuth\u00b7PostParams()",
 		}
 	}
 
