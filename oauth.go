@@ -53,6 +53,9 @@ type OAuth struct {
 
 	userName string
 	userId   uint
+
+	// HTTP transport to use, or nil for http.DefaultTransport
+	Transport http.RoundTripper
 }
 
 // An empty map[string]string.
@@ -278,28 +281,28 @@ func timestamp() string {
 	return strconv.FormatInt(time.Now().Unix(), 10)
 }
 
-func (o *OAuth) Post(url string, params map[string]string) (r *http.Response, err error) {
-	if !o.Authorized() {
-		return nil, &danceError{
-			What:  "Not authorized",
-			Where: "OAuth\u00b7PostParams()",
-		}
-	}
+// func (o *OAuth) Post(url string, params map[string]string) (r *http.Response, err error) {
+// 	if !o.Authorized() {
+// 		return nil, &danceError{
+// 			What:  "Not authorized",
+// 			Where: "OAuth\u00b7PostParams()",
+// 		}
+// 	}
 
-	oParams := o.params()
-	r, err = o.makeRequest("POST", url, oParams, params)
-	return
-}
+// 	oParams := o.params()
+// 	r, err = o.makeRequest("POST", url, oParams, params)
+// 	return
+// }
 
-func (o *OAuth) Get(url string, params map[string]string) (r *http.Response, err error) {
-	if !o.Authorized() {
-		return nil, &danceError{
-			What:  "Not authorized",
-			Where: "OAuth\u00b7PostParams()",
-		}
-	}
+// func (o *OAuth) Get(url string, params map[string]string) (r *http.Response, err error) {
+// 	if !o.Authorized() {
+// 		return nil, &danceError{
+// 			What:  "Not authorized",
+// 			Where: "OAuth\u00b7PostParams()",
+// 		}
+// 	}
 
-	oParams := o.params()
-	r, err = o.makeRequest("GET", url, oParams, params)
-	return
-}
+// 	oParams := o.params()
+// 	r, err = o.makeRequest("GET", url, oParams, params)
+// 	return
+// }

@@ -140,3 +140,23 @@ func get(url_ string, oauthHeaders map[string]string) (r *http.Response, err err
 
 	return send(&req)
 }
+
+
+func (o *OAuth) RoundTrip(req *http.Request) (*http.Response, error) {
+	if !o.Authorized() {
+		return nil, &danceError{
+			What:  "Not authorized",
+			Where: "OAuth\u00b7PostParams()",
+		}
+	}
+
+	o.UpdateRequest(req)
+ 	oParams := o.params()
+ 	r, err = o.makeRequest("POST", url, oParams, params)
+
+ 	t := o.Transport
+	if t == nil {
+		t = http.DefaultTransport
+	}
+
+}
